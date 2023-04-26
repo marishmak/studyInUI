@@ -491,16 +491,19 @@ int main(){
 
     if(pipe != nullptr) {
 
-        fprintf(pipe, "set terminal wxt size 1000,600\n");
+        fprintf(pipe, "set terminal wxt size 800,600\n");
         fprintf(pipe, "plot [0 : 40] [0 : 200] ");
-        fprintf(pipe, "%lf*x**%d", answer.matrix[0][0], 0);
 
-        for(int i = 1; i < answer.n; ++i) {
-            fprintf(pipe, " + %lf*x**%d", answer.matrix[i][0], i);
+        for(int i = 0; i < answer.n; ++i) {
+            if(i==0){
+                fprintf(pipe, "%lf*x**%d", answer.matrix[0][0], 0);
+            }else {
+                fprintf(pipe, " + %lf*x**%d", answer.matrix[i][0], i);
+            }
         }
 
 
-        fprintf(pipe, " , '-' using 1:2 title 'Given Points' with points\n");
+        fprintf(pipe, " , '-' using 1:2 title 'given points' with points\n");
         for(int i = 0; i < m; ++i) {
             fprintf(pipe, "%f\t%f\n", t[i], b[i]);
             cout << t[i] << " " << b[i] << "\n";
